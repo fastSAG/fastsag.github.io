@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.66.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="../css/normalize.css">
+<link rel="stylesheet" href="../css/skeleton.css">
+<link rel="stylesheet" href="../css/custom.css">
+<link rel="alternate" href="index.xml" type="application/rss+xml" title="Speech Research">
+<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+
+<title >CoMoSpeech: One-Step Speech and Singing Voice Synthesis via Consistency Model - Speech Research</title>
+</head> -->
+<head>
+	<meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.88.1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href=""https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+  
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/normalize.css">
+
+	<title>ZSinger: Zero-Shot Singing Voice Synthesis via regeneration learning - Speech Research</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<!-- 
+<body rightmargin="100" leftmargin="100" topmargin="50" bottommargin="100" line-height:160%>
+<font size="5"> -->
+ 
+<div class="container">
+  
+
+	<header role="banner">
+		
+			
+		
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="https://schema.org/BlogPosting">
+
+            <h1 class="entry-title" itemprop="headline" align="center" ><font color="000093"  ><b>ZSinger: Zero-Shot Singing Voice Synthesis via regeneration learning</b></font></h1>
+			
+			<section itemprop="entry-text">
+				<br>
+
+<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded"> 
+
+  <h2 id="abstract" style="text-align:center;"><font color="000093">Abstract</font></h2>
+  <style>
+    .centered-link {
+      text-align: center;
+    }
+  </style>
+<!--   
+  <div class="centered-link">
+    <a href="https://github.com/zhenye234/CoMoSpeech">CODE LINK</a>
+  </div> -->
+  <p style="text-align: justify;"><font color="061E61"> Singing voice synthesis has witnessed significant advancements in recent years, enabling the generation of high-quality artificial vocals. Previous singing acoustic models directly adopt generative models to learn the mapping from the lyric and musical score to mel-spectrogram. Therefore, the performance heavily relies on the quantity of paired training data.  Unfortunately, annotated singing data is scarce due to the difficulty of annotation, which limits the model generalization to unseen data.  In this paper, by introducing audio-only unpaired data, we propose the first <b>Z</b>ero-<b>S</b>hot singing voice synthesis system, ZSinger, which utilizes limited paired data and abundant unpaired data for training. More specifically, we introduce the regeneration learning paradigm to divide the singing acoustic model into two stages. The intermediate representations bridging the two stages are content features and pitch extracted from raw audio data. The model in the first stage converts lyrics and musical scores to intermediate representations via paired data training.  Subsequently, the second-stage model is trained on abundant data to produce the Mel-spectrogram, using content and pitch representations as inputs alongside singer identity extracted from short reference audio. Experimental results demonstrate that our proposed methods can achieve better audio quality and voice similarity than the baseline under zero-shot setting, particularly on less paired data. </font></p>
+  <!-- <br></br> -->
+  <figure>
+  <p align="center"><img src="2.png" width="100%"  class="center"/></p>
+ 
+
+  <figcaption style="text-align: center;">
+  <!-- <b>Figure 1:</b> The audio quality and inference speed comparisons of different TTS systems. We use  MOS (mean opinion score) and NFE (number of  function evaluations) to measure the audio quality and inference speed, respectively. The higher MOS and lower NFE indicate better audio quality and faster inference speed. The proposed CoMoSpeech achieves the best trade-off between audio quality and inference speed. In addition, our teacher models achieve the best audio quality among all the compared methods. -->
+  <b>Figure 1:</b>  An illustration of  ZSinger. 
+  </figcaption>
+  </figure>
+  <!-- <br></br> -->
+</div>
+<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded"> 
+<h2 id="TTS" style="text-align:center;"><font color="000093">Zero-Shot Singing voice synthesis - Reconstruction</font></h2>
+<p style="text-align: justify;"><font color="061E61"> The below audio samples show the comparison between Recordings, ground-truth (GT) mel + Vocoder, FFTSinger-zs (5% training data and full training data), DiffSinger-zs (5% training data and full training data) and <b> our ZSinger (5% training data and full training data) </b>. Samples are selected from the test   of  M4Singer Dataset. 
+<ul style="list-style-type:square">
+<!--
+<li><font color="061E61"> For each dataset, the same HiFi-GAN vocoder pretrained on GT mel is used for all methods. </font></li>
+-->
+<!--<li>
+<font color="061E61"> Each generated sample has been normalized, and the raw recording is shown in Recordings. </font></li>
+-->
+<!--<li>
+<li><font color="061E61"> Our method ResGrad uses FastSpeech 2 as the initial predictor for estimating mel-spectrogram. </font></li>
+-->
+<!-- <li><font color="061E61"> The number of inference steps used by diffusion models is shown behind the name of models. For example, ResGrad-4 stands for ResGrad with 4 inference steps. But FastSpeech 2 is a model name instead of denoting the number of inference steps. </font></li> -->
+<!-- <li><font color="061E61"> For each dataset, the inference speed measured by the real-time factor (RTF) is shown in the brackets of the first case. </font></li> -->
+<!-- <li><font color="061E61"> In order to improve the inference speed at each sampling step, ResGrad uses the same U-Net architecture in GradTTS but with twice fewer channels to reduce the model size (2.0M in ResGrad vs 7.6M in GradTTS). </font></li> -->
+</ul>
+
+<!-- <br></br>
+<p><b><font color="000093">LJSpeech: A dataset contains the recordings from a female speaker at a sampling rate of 22.05kHz.</font></b></p> -->
+<br></br>
+<p><em><font color="061E62">Sample 1: 把永远爱你写进诗的结尾 </font></em></p>
+<table align="center">
+<thead>
+<tr>
+<th style="font-weight: normal;text-align: center">Recordings</th>
+<th style="font-weight: normal;text-align: center">GT mel + Vocoder</th>
+<!-- <th style="font-weight: normal;text-align: center">FastSpeech 2 <br> (NFE:1, RTF: 0.0017)</th> -->
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\14_wav_gt2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\14_wav_gt_mel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<!-- <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples/LJSpeech/0_wavs_fft.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+</tr>
+</tbody>
+</table>
+
+<table align="center">
+<thead>
+<tr>
+<th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (5% Training Data)</th>
+<th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (5% Training Data)</th>
+<th style=" font-weight: normal;text-align: center">  Ours <br> (5%  Training Data)</th>
+</tr>
+</thead>
+<tbody><b></b>
+<tr>
+<td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\14_fft_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\14_m4_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+<td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\14_z_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+</tr>
+</tbody>
+</table>
+
+<table align="center">
+  <thead>
+  <tr>
+  <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (Full Training Data)</th>
+  <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (Full Training Data)</th>
+  <th style=" font-weight: normal;text-align: center">  Ours <br> (Full Training Data)</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\14_fft_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\14_m4_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\14_z_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  </tr>
+  </tbody>
+  </table>
+
+
+  <br></br>
+  <p><em><font color="061E62">Sample 2: 落在我蓝色百褶裙上 </font></em></p>
+  <table align="center">
+  <thead>
+  <tr>
+  <th style="font-weight: normal;text-align: center">Recordings</th>
+  <th style="font-weight: normal;text-align: center">GT mel + Vocoder</th>
+  <!-- <th style="font-weight: normal;text-align: center">FastSpeech 2 <br> (NFE:1, RTF: 0.0017)</th> -->
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\17_wav_gt2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\17_wav_gt_mel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <!-- <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples/LJSpeech/0_wavs_fft.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+  </tr>
+  </tbody>
+  </table>
+  
+  <table align="center">
+  <thead>
+  <tr>
+  <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (5% Training Data)</th>
+  <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (5% Training Data)</th>
+  <th style=" font-weight: normal;text-align: center">  Ours <br> (5%  Training Data)</th>
+  </tr>
+  </thead>
+  <tbody><b></b>
+  <tr>
+  <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\17_fft_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\17_m4_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\17_z_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  </tr>
+  </tbody>
+  </table>
+  
+  <table align="center">
+    <thead>
+    <tr>
+    <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (Full Training Data)</th>
+    <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (Full Training Data)</th>
+    <th style=" font-weight: normal;text-align: center">  Ours <br> (Full Training Data)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\17_fft_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\17_m4_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\17_z_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    </tr>
+    </tbody>
+    </table>
+
+    <br></br>
+    <p><em><font color="061E62">Sample 3: 靠嬉笑来虚度 聚散得慷慨 </font></em></p>
+    <table align="center">
+    <thead>
+    <tr>
+    <th style="font-weight: normal;text-align: center">Recordings</th>
+    <th style="font-weight: normal;text-align: center">GT mel + Vocoder</th>
+    
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\18_wav_gt2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\18_wav_gt_mel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <!-- <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples/LJSpeech/0_wavs_fft.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+    </tr>
+    </tbody>
+    </table>
+    
+    <table align="center">
+    <thead>
+    <tr>
+    <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (5% Training Data)</th>
+    <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (5% Training Data)</th>
+    <th style=" font-weight: normal;text-align: center">  Ours <br> (5%  Training Data)</th>
+    </tr>
+    </thead>
+    <tbody><b></b>
+    <tr>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\18_fft_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\18_m4_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\18_z_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    </tr>
+    </tbody>
+    </table>
+    
+    <table align="center">
+      <thead>
+      <tr>
+      <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (Full Training Data)</th>
+      <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (Full Training Data)</th>
+      <th style=" font-weight: normal;text-align: center">  Ours <br> (Full Training Data)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\18_fft_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\18_m4_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\18_z_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      </tr>
+      </tbody>
+      </table>
+     
+     
+      <br></br>
+      <p><em><font color="061E62">Sample 4: 我来到你的城市 </font></em></p>
+      <table align="center">
+      <thead>
+      <tr>
+      <th style="font-weight: normal;text-align: center">Recordings</th>
+      <th style="font-weight: normal;text-align: center">GT mel + Vocoder</th>
+      
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\19_wav_gt2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\19_wav_gt_mel.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <!-- <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples/LJSpeech/0_wavs_fft.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+      </tr>
+      </tbody>
+      </table>
+      
+      <table align="center">
+      <thead>
+      <tr>
+      <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (5% Training Data)</th>
+      <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (5% Training Data)</th>
+      <th style=" font-weight: normal;text-align: center">  Ours <br> (5%  Training Data)</th>
+      </tr>
+      </thead>
+      <tbody><b></b>
+      <tr>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\19_fft_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\19_m4_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\19_z_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      </tr>
+      </tbody>
+      </table>
+      
+      <table align="center">
+        <thead>
+        <tr>
+        <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (Full Training Data)</th>
+        <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (Full Training Data)</th>
+        <th style=" font-weight: normal;text-align: center">  Ours <br> (Full Training Data)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\19_fft_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\19_m4_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\m4\19_z_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        </tr>
+        </tbody>
+        </table>
+</div>
+ 
+<div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded"> 
+  <h2 id="TTS" style="text-align:center;"><font color="000093">Zero-Shot Singing voice synthesis - Conversion</font></h2>
+  <p style="text-align: justify;"><font color="061E61"> The below audio samples show the comparison between GT content & Pitch, Reference audio, FFTSinger-zs (5% training data and full training data), DiffSinger-zs (5% training data and full training data) and <b> our ZSinger (5% training data and full training data) </b>. Samples are selected from the test   of  M4Singer Dataset. 
+  <ul style="list-style-type:square">
+
+    <br></br>
+    <p><em><font color="061E62">Sample 1: 余路还要走多久 </font></em></p>
+    <table align="center">
+    <thead>
+    <tr>
+      <th style="font-weight: normal;text-align: center">Source </th>
+      <th style="font-weight: normal;text-align: center">Prompt </th>
+    
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0_wav_gt2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0004.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <!-- <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples/LJSpeech/0_wavs_fft.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+    </tr>
+    </tbody>
+    </table>
+    
+    <table align="center">
+    <thead>
+    <tr>
+    <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (5% Training Data)</th>
+    <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (5% Training Data)</th>
+    <th style=" font-weight: normal;text-align: center">  Ours <br> (5%  Training Data)</th>
+    </tr>
+    </thead>
+    <tbody><b></b>
+    <tr>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0_fft_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0_m4_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0_z_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    </tr>
+    </tbody>
+    </table>
+    
+    <table align="center">
+      <thead>
+      <tr>
+      <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (Full Training Data)</th>
+      <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (Full Training Data)</th>
+      <th style=" font-weight: normal;text-align: center">  Ours <br> (Full Training Data)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0_fft_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0_m4_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0_z_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      </tr>
+      </tbody>
+      </table>    
+
+      <br></br>
+      <p><em><font color="061E62">Sample 2: 云层深处的黑暗啊 </font></em></p>
+      <table align="center">
+      <thead>
+      <tr>
+        <th style="font-weight: normal;text-align: center">Source </th>
+        <th style="font-weight: normal;text-align: center">Prompt </th>
+      
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\1_wav_gt2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0001.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <!-- <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples/LJSpeech/0_wavs_fft.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+      </tr>
+      </tbody>
+      </table>
+      
+      <table align="center">
+      <thead>
+      <tr>
+      <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (5% Training Data)</th>
+      <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (5% Training Data)</th>
+      <th style=" font-weight: normal;text-align: center">  Ours <br> (5%  Training Data)</th>
+      </tr>
+      </thead>
+      <tbody><b></b>
+      <tr>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\1_fft_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\1_m4_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\1_z_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      </tr>
+      </tbody>
+      </table>
+      
+      <table align="center">
+        <thead>
+        <tr>
+        <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (Full Training Data)</th>
+        <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (Full Training Data)</th>
+        <th style=" font-weight: normal;text-align: center">  Ours <br> (Full Training Data)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\1_fft_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\1_m4_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\1_z_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        </tr>
+        </tbody>
+        </table>
+
+        <br></br>
+        <p><em><font color="061E62">Sample 3: 如果当时我们能不那么倔强 </font></em></p>
+        <table align="center">
+        <thead>
+        <tr>
+          <th style="font-weight: normal;text-align: center">Source </th>
+          <th style="font-weight: normal;text-align: center">Prompt </th>
+        
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\2_wav_gt2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0030.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <!-- <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples/LJSpeech/0_wavs_fft.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+        </tr>
+        </tbody>
+        </table>
+        
+        <table align="center">
+        <thead>
+        <tr>
+        <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (5% Training Data)</th>
+        <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (5% Training Data)</th>
+        <th style=" font-weight: normal;text-align: center">  Ours <br> (5%  Training Data)</th>
+        </tr>
+        </thead>
+        <tbody><b></b>
+        <tr>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\2_fft_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\2_m4_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\2_z_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        </tr>
+        </tbody>
+        </table>
+        
+        <table align="center">
+          <thead>
+          <tr>
+          <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (Full Training Data)</th>
+          <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (Full Training Data)</th>
+          <th style=" font-weight: normal;text-align: center">  Ours <br> (Full Training Data)</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+          <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\2_fft_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\2_m4_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\2_z_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          </tr>
+          </tbody>
+          </table>
+
+          <br></br>
+          <p><em><font color="061E62">Sample 4: 当记忆的线缠绕过往支离破碎是慌乱占据了心扉 </font></em></p>
+          <table align="center">
+          <thead>
+          <tr>
+          <th style="font-weight: normal;text-align: center">Source </th>
+          <th style="font-weight: normal;text-align: center">Prompt </th>
+          
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+          <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\3_wav_gt2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\0037.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <!-- <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples/LJSpeech/0_wavs_fft.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+          </tr>
+          </tbody>
+          </table>
+          
+          <table align="center">
+          <thead>
+          <tr>
+          <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (5% Training Data)</th>
+          <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (5% Training Data)</th>
+          <th style=" font-weight: normal;text-align: center">  Ours <br> (5%  Training Data)</th>
+          </tr>
+          </thead>
+          <tbody><b></b>
+          <tr>
+          <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\3_fft_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\3_m4_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\3_z_005.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+          </tr>
+          </tbody>
+          </table>
+          
+          <table align="center">
+            <thead>
+            <tr>
+            <th style="font-weight: normal;text-align: center">FFTSinger-zs <br> (Full Training Data)</th>
+            <th style="font-weight: normal;text-align: center">DiffSinger-zs <br> (Full Training Data)</th>
+            <th style=" font-weight: normal;text-align: center">  Ours <br> (Full Training Data)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\3_fft_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\3_m4_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            <td style=" text-align: center"><audio controls="controls" ><source src="GeneratedSamples\out_demo_vc\3_z_full.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+            </tr>
+            </tbody>
+            </table>          
+</div>
+
+</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	
+
+</div>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-139981676-1', 'auto');
+	ga('send', 'pageview');
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+<script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+         HTML: ["input/TeX","output/HTML-CSS"],
+         TeX: {
+                Macros: {
+                         bm: ["\\boldsymbol{#1}", 1],
+                         argmax: ["\\mathop{\\rm arg\\,max}\\limits"],
+                         argmin: ["\\mathop{\\rm arg\\,min}\\limits"]},
+                extensions: ["AMSmath.js","AMSsymbols.js"],
+                equationNumbers: { autoNumber: "AMS" } },
+         extensions: ["tex2jax.js"],
+         jax: ["input/TeX","output/HTML-CSS"],
+         tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true },
+         "HTML-CSS": { availableFonts: ["TeX"],
+                       linebreaks: { automatic: true } }
+     });
+ </script>
+
+ <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       }
+     });
+ </script>
+
+ <script type="text/javascript" async
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+ </script>
+
+
+
+
+</body>
+</html>
