@@ -46,14 +46,14 @@
 	<main role="main">
 		<article itemscope itemtype="https://schema.org/BlogPosting">
 
-            <h1 class="entry-title" itemprop="headline" align="center" ><font color="000093"  ><b>ZSinger: Zero-Shot Singing Voice Synthesis via regeneration learning</b></font></h1>
+            <h1 class="entry-title" itemprop="headline" align="center" ><font color="000000"  ><b>FastSAG: Towards Fast Non-Autoregressive Singing Accompaniment Generation</b></font></h1>
 			
 			<section itemprop="entry-text">
 				<br>
 
 <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded"> 
 
-  <h2 id="abstract" style="text-align:center;"><font color="000093">Abstract</font></h2>
+  <h2 id="abstract" style="text-align:center;"><font color="000000">Abstract</font></h2>
   <style>
     .centered-link {
       text-align: center;
@@ -63,10 +63,10 @@
   <div class="centered-link">
     <a href="https://github.com/zhenye234/CoMoSpeech">CODE LINK</a>
   </div> -->
-  <p style="text-align: justify;"><font color="061E61"> Singing voice synthesis has witnessed significant advancements in recent years, enabling the generation of high-quality artificial vocals. Previous singing acoustic models directly adopt generative models to learn the mapping from the lyric and musical score to mel-spectrogram. Therefore, the performance heavily relies on the quantity of paired training data.  Unfortunately, annotated singing data is scarce due to the difficulty of annotation, which limits the model generalization to unseen data.  In this paper, by introducing audio-only unpaired data, we propose the first <b>Z</b>ero-<b>S</b>hot singing voice synthesis system, ZSinger, which utilizes limited paired data and abundant unpaired data for training. More specifically, we introduce the regeneration learning paradigm to divide the singing acoustic model into two stages. The intermediate representations bridging the two stages are content features and pitch extracted from raw audio data. The model in the first stage converts lyrics and musical scores to intermediate representations via paired data training.  Subsequently, the second-stage model is trained on abundant data to produce the Mel-spectrogram, using content and pitch representations as inputs alongside singer identity extracted from short reference audio. Experimental results demonstrate that our proposed methods can achieve better audio quality and voice similarity than the baseline under zero-shot setting, particularly on less paired data. </font></p>
+  <p style="text-align: justify;"><font color="061E61"> Singing Accompaniment Generation (SAG), which generates instrumental music to accompany input vocals, is crucial to developing human-AI symbiotic art creation systems. The state-of-the-art method, SingSong, utilizes a multi-stage autoregressive (AR) model for SAG, however, this method is extremely slow as it generates semantic and acoustic tokens recursively, and this makes it impossible for real-time applications. In this paper, we aim to develop a Fast SAG method that can create high-quality and coherent accompaniments. A non-AR diffusion-based framework is developed, which by carefully designing the conditions inferred from the vocal signals, generates the Mel spectrogram of the target accompaniment directly. With diffusion and Mel spectrogram modeling, the proposed method significantly simplifies the AR token-based SingSong framework, and largely accelerates the generation. We also design semantic projection, prior projection blocks as well as a set of loss functions, to ensure the generated accompaniment has semantic and rhythm coherence with the vocal signal. By intensive experimental studies, we demonstrate that the proposed method can generate better samples than SingSong, and accelerate the generation by at least 30 times. </font></p>
   <!-- <br></br> -->
   <figure>
-  <p align="center"><img src="2.png" width="100%"  class="center"/></p>
+  <p align="center"><img src="Overview.png" width="80%"  class="center"/></p>
  
 
   <figcaption style="text-align: center;">
