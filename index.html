@@ -74,7 +74,7 @@
 
   <figcaption style="text-align: center;">
   <!-- <b>Figure 1:</b> The audio quality and inference speed comparisons of different TTS systems. We use  MOS (mean opinion score) and NFE (number of  function evaluations) to measure the audio quality and inference speed, respectively. The higher MOS and lower NFE indicate better audio quality and faster inference speed. The proposed CoMoSpeech achieves the best trade-off between audio quality and inference speed. In addition, our teacher models achieve the best audio quality among all the compared methods. -->
-  <b>Figure 1:</b>  An illustration of  ZSinger. 
+  <b>Figure 1:</b>  Overview of FastSAG. (a) indicates how training data is constructed using a source separation algorithm to acquire vocal-accompaniment pairs. (b) illustrates how to compute conditions based on vocal input. It mainly contains two blocks: semantic projection block and prior projection block. The semantic block is for high-level semantic control and the prior block is for frame-level control. (c) is the stochastic differential equation (SDE) solver, which will take prior computed in (b) as a condition. In the inference process, the generated Mel spectrogram will be converted to an audio waveform through BigvGAN. 
   </figcaption>
   </figure>
   <!-- <br></br> -->
@@ -97,8 +97,7 @@
 <!-- <li><font color="061E61"> In order to improve the inference speed at each sampling step, ResGrad uses the same U-Net architecture in GradTTS but with twice fewer channels to reduce the model size (2.0M in ResGrad vs 7.6M in GradTTS). </font></li> -->
 </ul>
 
-
-<table align="center">
+<table align="rightmargin">
   <thead>
   <tr>
   <th style="font-weight: normal;text-align: center">Vocal Input</th>
@@ -146,7 +145,6 @@
   </thead>
   <tbody><b></b>
   <tr>
-
   </tr>
   </tbody>
   </table>
@@ -158,7 +156,7 @@
   <ul style="list-style-type:square">
 
     <br></br>
-    <table align="center">
+    <table align="leftmargin">
     <thead>
 
       <tr>
