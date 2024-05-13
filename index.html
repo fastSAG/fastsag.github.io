@@ -79,6 +79,7 @@
   </figure>
   <!-- <br></br> -->
 </div>
+
 <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded"> 
 <h2 id="In-domain" style="text-align:center;"><font color="000000">In-domain Generation Samples</font></h2>
 <p style="text-align: justify;"><font color="000000"> The following samples are generated from in-domain evaluation dataset. Although the in-domain evaluation dataset is not used for training, they follow a similar distribution. We divide the 1.2 million pairs of 10-second clips into training and (in-domain) evaluation datasets, with 2,000 samples for in-domain evaluation.
@@ -97,49 +98,86 @@
 <!-- <li><font color="061E61"> In order to improve the inference speed at each sampling step, ResGrad uses the same U-Net architecture in GradTTS but with twice fewer channels to reduce the model size (2.0M in ResGrad vs 7.6M in GradTTS). </font></li> -->
 </ul>
 
-<table align="rightmargin">
+<table align="center">
   <thead>
   <tr>
   <th style="font-weight: normal;text-align: center">Vocal Input</th>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\000_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\049_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\032_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-  <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+
+  <tr>
+    <th style="font-weight: normal;text-align: center">  </th>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\030_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\029_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 
   <tr>
   <th style="font-weight: normal;text-align: center">Ground Truth</th>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\000_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\049_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\032_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-  <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+
+  <tr>
+    <th style="font-weight: normal;text-align: center"></th>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\030_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\029_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+
 
   <tr>
   <th style=" font-weight: normal;text-align: center">FastSAG</th>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\000_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\049_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
   <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\032_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-  <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\043_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+  <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\043_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+
+  <tr>
+    <th style=" font-weight: normal;text-align: center"></th>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\043_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\030_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\029_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 
   <tr>
     <th style=" font-weight: normal;text-align: center">FastSAG-interpolation</th>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\000_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\049_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\032_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+   <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\043_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+
+   <tr>
+    <th style=" font-weight: normal;text-align: center"></th>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\043_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\030_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\029_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 
   <tr>
     <th style=" font-weight: normal;text-align: center">SingSong</th>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\000_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\049_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\032_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-    <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+
+    <tr>
+      <th style=" font-weight: normal;text-align: center"></th>
+      <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\030_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\029_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 
   <tr>
     <th style=" font-weight: normal;text-align: center">RandSong</th>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\000_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\049_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\032_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-    <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\043_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+    <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\043_random.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
+
+    <tr>
+      <th style=" font-weight: normal;text-align: center"></th>
+      <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\043_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\030_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+      <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\029_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
  
   </tr>
   </thead>
@@ -149,6 +187,17 @@
   </tbody>
   </table>
 </div>
+
+
+
+
+
+
+
+
+
+
+
  
 <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded"> 
   <h2 id="TTS" style="text-align:center;"><font color="000000">Out-domain Generation Samples</font></h2>
@@ -164,42 +213,42 @@
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\045_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\041_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\038_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-        <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\044_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\044_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
 
       <tr>
         <th style="font-weight: normal;text-align: center">Ground Truth</th>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\045_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\041_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\038_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-        <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\044_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\044_gt.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
         
       <tr>
         <th style=" font-weight: normal;text-align: center">FastSAG</th>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\045_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\041_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\038_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-        <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\044_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM\044_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
         
       <tr>
         <th style=" font-weight: normal;text-align: center">FastSAG-interpolation</th>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\045_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\041_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\038_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-        <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\044_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\044_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
         
       <tr>
         <th style=" font-weight: normal;text-align: center">SingSong</th>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\045_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\041_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\038_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-        <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\044_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\044_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
         
       <tr>
         <th style=" font-weight: normal;text-align: center">RandSong</th>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\045_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\041_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\038_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
-        <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\044_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+        <!-- <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\044_random.wav" autoplay/>Your browser does not support the audio element.</audio></td> -->
 
   
  
