@@ -24,7 +24,7 @@
 	<link rel="stylesheet" href="css/custom.css">
 	<link rel="stylesheet" href="css/normalize.css">
 
-	<title>ZSinger: Zero-Shot Singing Voice Synthesis via regeneration learning - Speech Research</title>
+	<title>FastSAG: Towards Fast Non-Autoregressive Singing Accompaniment Generation - AI Music Research</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
 </head>
@@ -53,16 +53,19 @@
 
 <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded"> 
 
+  <div class="centered-link"> <a href="">Paper</a> | <a href="">Code</a> </div>
+
+  <p align="center"><sup>1</sup>Jianyi Chen, <sup>1</sup>Wei Xue, <sup>2</sup>Xu Tan, <sup>1</sup>Zhen Ye, <sup>1</sup>Qifeng Liu, <sup>1</sup>Yike Guo</p>
+  <p align="center"><sup>1</sup>The Hong Kong University of Science and Technology, <sup>2</sup>Microsoft Research Asia</p>
+
   <h2 id="abstract" style="text-align:center;"><font color="000000">Abstract</font></h2>
   <style>
     .centered-link {
       text-align: center;
     }
   </style>
-<!--   
-  <div class="centered-link">
-    <a href="https://github.com/zhenye234/CoMoSpeech">CODE LINK</a>
-  </div> -->
+   
+
   <p style="text-align: justify;"><font color="000000"> Singing Accompaniment Generation (SAG), which generates instrumental music to accompany input vocals, is crucial to developing human-AI symbiotic art creation systems. The state-of-the-art method, SingSong, utilizes a multi-stage autoregressive (AR) model for SAG, however, this method is extremely slow as it generates semantic and acoustic tokens recursively, and this makes it impossible for real-time applications. In this paper, we aim to develop a Fast SAG method that can create high-quality and coherent accompaniments. A non-AR diffusion-based framework is developed, which by carefully designing the conditions inferred from the vocal signals, generates the Mel spectrogram of the target accompaniment directly. With diffusion and Mel spectrogram modeling, the proposed method significantly simplifies the AR token-based SingSong framework, and largely accelerates the generation. We also design semantic projection, prior projection blocks as well as a set of loss functions, to ensure the generated accompaniment has semantic and rhythm coherence with the vocal signal. By intensive experimental studies, we demonstrate that the proposed method can generate better samples than SingSong, and accelerate the generation by at least 30 times. </font></p>
   <!-- <br></br> -->
   <figure>
@@ -126,14 +129,14 @@
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\043_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 
   <tr>
-    <th style=" font-weight: normal;text-align: center">Singsong</th>
+    <th style=" font-weight: normal;text-align: center">SingSong</th>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\000_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\049_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\032_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\043_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
 
   <tr>
-    <th style=" font-weight: normal;text-align: center">Randsong</th>
+    <th style=" font-weight: normal;text-align: center">RandSong</th>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\000_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\049_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
     <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\032_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
@@ -151,7 +154,7 @@
  
 <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded"> 
   <h2 id="TTS" style="text-align:center;"><font color="000000">Out-domain Generation Samples</font></h2>
-  <p style="text-align: justify;"><font color="000000"> The below audio samples show the comparison between GT content & Pitch, Reference audio, FFTSinger-zs (5% training data and full training data), DiffSinger-zs (5% training data and full training data) and <b> our ZSinger (5% training data and full training data) </b>. Samples are selected from the test   of  M4Singer Dataset. 
+  <p style="text-align: justify;"><font color="000000"> The out-of-domain zero-shot evaluation dataset is additionally built from MUSDB18 dataset, which is also the evaluation dataset of SingSong. Following the same procedures for training data processing on the MUSDB18 test dataset, we obtain 348 paired clips. The MUSDB18 training dataset is not used for training so the MUSDB18 test dataset is zero-shot. 
   <ul style="list-style-type:square">
 
     <br></br>
@@ -159,7 +162,7 @@
     <thead>
 
       <tr>
-        <th style=" font-weight: normal;text-align: center">Randsong</th>
+        <th style=" font-weight: normal;text-align: center">Vocal Input</th>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\045_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\041_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\038_gt_v.wav" autoplay/>Your browser does not support the audio element.</audio></td>
@@ -187,14 +190,14 @@
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\EDM_interpolate\044_0_gen.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         
       <tr>
-        <th style=" font-weight: normal;text-align: center">Singsong</th>
+        <th style=" font-weight: normal;text-align: center">SingSong</th>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\045_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\041_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\038_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\SISO\044_gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         
       <tr>
-        <th style=" font-weight: normal;text-align: center">Randsong</th>
+        <th style=" font-weight: normal;text-align: center">RandSong</th>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\045_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\041_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
         <td style=" text-align: center"><audio controls="controls" ><source src="samples\RND\038_random.wav" autoplay/>Your browser does not support the audio element.</audio></td>
